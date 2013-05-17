@@ -17,7 +17,7 @@
     (display expected)
     (newline) "bad...")))
 
-; chop
+; binary chop: itarative process, recursive calls
 (define (chop-iter num array buttom top)
   (if (> buttom top)
       -1
