@@ -1,36 +1,50 @@
-; test-kit
+﻿; test-kit
 (define vect-len vector-length)
-
 (define vect-ref vector-ref)
+(define vect-map vector-map)
 
 (define (vect-empty? array)
   (if (= (vect-len array) 0)
       #t
       #f))
+
+(define (sub-vect array from to)
+  (if (> from to)
+      #()
+      (subvector array from to)))
   
 (define (assert-equal expected actual)
   (if (= actual expected)
       "OK"
-      (begin (display actual)
-             (display " is not equal to ")
+      (begin (display "Expected ")
              (display expected)
-             (newline) "bad...")))
+             (display " but was ")
+             (display actual)
+             (newline) ". Bad...")))
 
-; binary chop: itarative process, recursive calls
-(define (chop-iter num array buttom top)
-  (if (> buttom top)
+; prepare array
+(define (index-vect array) 
+  (let ((count -1))
+    (vect-map (lambda (item)
+              (set! count (+ count 1))
+              (cons item count))
+            array)))
+
+; binary chop: recursive process, recursive calls
+(define (chop-recur num array)
+  (if (vect-empty? array)
       -1
-      (let ((middle (truncate (/ (+ top buttom) 2))))
-           (let ((middle-num (vect-ref array middle)))
-                (cond ((= middle-num num) middle)
-                      ((< middle-num num) (chop-iter num array (+ middle 1) top))
-                      ((< num middle-num) (chop-iter num array buttom (- middle 1))))))))
-
+      (let ((middle (truncate (/ (- (vect-len array) 1) 2))))
+           (let ((middle-num (car (vect-ref array middle))))
+                (cond ((= middle-num num) (cdr (vect-ref array middle)))
+                      ((< middle-num num) (chop-recur num (sub-vect array (+ middle 1) (vect-len array))))
+                      ((< num middle-num) (chop-recur num (sub-vect array 0 middle ))))))))
+          
 (define (chop num array)
   (if (vect-empty? array)
       -1
-      (chop-iter num array 0 (- (vect-len array) 1))))
-
+      (chop-recur num (index-vect array))))
+	
 ; test asserts
 (define (test-chop)
   (begin (assert-equal -1 (chop 3 #()))           
