@@ -44,7 +44,7 @@
   (if (vect-empty? array)
       -1
       (chop-recur num (index-vect array))))
-	
+
 ; test asserts
 (define (test-chop)
   (begin (assert-equal -1 (chop 3 #()))           
