@@ -27,7 +27,7 @@
 (define (print tree indent)
   (if (not (null? tree))
       (begin (display indent)
-             (display (number->string (car (item tree))))
+             (display (number->string (value (item tree))))
              (newline)
              (print (left tree) (string-append indent "---"))
              (print (right tree) (string-append indent "---")))))
