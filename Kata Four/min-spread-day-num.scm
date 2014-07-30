@@ -1,15 +1,30 @@
-﻿(define (min-spread-day-num data) 
-    (day-num
-        (min-spread-entry data)))
+﻿(define (id entry)
+    ())
 
-(define (day-num entry)
+(define (max-val entry)
+    ())
+
+(define (min-val entry)
     ())
     
-(define (min-spread-entry data)
-    (min spread data))
-
 (define (spread entry)
     (abs
         (- 
-            (max-temp entry)
-            (min-temp entry))))
+            (max-val entry)
+            (min-val entry))))
+
+(define (find-min spread entry-set) 
+	(vector-first
+		(vector-sort
+			(vector-map spread entry-set))))
+
+(define (min-spread-entry entry-set)
+    (find-min spread entry-set))
+
+(define (min-spread-id entry-set) 
+    (id
+        (min-spread-entry entry-set)))
+
+; 1 88 59
+; 2 79 63
+; 3 77 55
