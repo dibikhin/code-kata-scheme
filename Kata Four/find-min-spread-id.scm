@@ -37,12 +37,12 @@
 					((< x-value y-value) #t)
 					((> x-value y-value) #f))))))
 
-(define (min-spread-id vect-of-vects)
+(define (find-min-spread-id vect-of-vects)
 	(id
 		(vector-first
 			(vector-sort-by spread vect-of-vects))))
 
-(define entry-set 
+(define temperatures
 	#(
 		#(1 88 59)
 		#(2 79 63)
@@ -75,4 +75,29 @@
 		#(29 88 66)
 		#(30 90 45)))
 
-(min-spread-id entry-set)
+(define soccer-goals
+	#(
+		#("Arsenal"       79 36)
+		#("Liverpool"     67 30)
+		#("Manchester_U"  87 45)
+		#("Newcastle"     74 52)
+		#("Leeds"         53 37)
+		#("Chelsea"       66 38)
+		#("West_Ham"      48 57)
+		#("Aston_Villa"   46 47)
+		#("Tottenham"     49 53)
+		#("Blackburn"     55 51)
+		#("Southampton"   46 54)
+		#("Middlesbrough" 35 47)
+		#("Fulham"        36 44)
+		#("Charlton"      38 49)
+		#("Everton"       45 57)
+		#("Bolton"        44 62)
+		#("Sunderland"    29 51)
+		#("Ipswich"       41 64)
+		#("Derby"         33 63)
+		#("Leicester"     30 64)))
+
+(find-min-spread-id temperatures)
+
+(find-min-spread-id soccer-goals)
